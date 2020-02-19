@@ -1,18 +1,18 @@
-" ===
-" === AUTO LOAD FOR FIRST TIME USES
-" ===
 set nocompatible
+
 " vim-plug
 call plug#begin('~/.config/nvim/plugged')
 " highlighting other words under the cursor
 Plug 'RRethy/vim-illuminate'
-
+" "
 Plug 'junegunn/vim-peekaboo'
 
 Plug 'tell-k/vim-autopep8'
 Plug 'Yggdroot/indentLine'
+"Plug 'jiangmiao/auto-pairs'
+
+" vim startify 
 Plug 'mhinz/vim-startify'
-Plug 'jiangmiao/auto-pairs'
 
 "tagbar
 Plug 'majutsushi/tagbar'
@@ -26,7 +26,6 @@ Plug 'dense-analysis/ale'
 Plug 'dracula/vim', { 'name': 'dracula' }
 Plug 'Lokaltog/vim-powerline'
 Plug 'scrooloose/nerdtree'
-"Plug 'ctrlpvim/ctrlp.vim'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 
@@ -55,7 +54,7 @@ set t_Co=256
 let g:Powerline_symbols = 'fancy'
 
 " let python_highlight_all=1
-filetype plugin indent on     " required
+filetype plugin indent on
 exec "nohlsearch"
 
 " set foldmethod = manual
@@ -91,10 +90,9 @@ func! CompileRunGcc()
 	exec "w"
 	if &filetype == 'c'
 		exec "!g++ % -o %<"
-		exec "!time ./%<"
 	elseif &filetype == 'cpp'
-		exec "!g++ -std=c++11 % -Wall -o %<"
-		exec "!time ./%<"
+    exec "w"
+    exec "!g++ % -o %<"
 	elseif &filetype == 'java'
 		exec "!javac %"
 		exec "!time java %<"
@@ -126,8 +124,12 @@ set completeopt-=preview
 
 let mapleader = ' '
 
+" ===
+" === tagbar
+" ===
 nnoremap <S-h> :exec "!python -c \"help('".expand("<cword>")."')\"" <CR>
 nmap <c-b> :TagbarToggle<CR>
+
 noremap ; :
 vnoremap Y "+y
 
@@ -222,8 +224,10 @@ let g:ale_set_quickfix = 1
 " let g:ale_lint_on_enter = 0
 
 "------------------------END ale.vim--------------------------------------
-"
-" NERDTree config
+
+" ===
+" === NERDTree
+" ===
 " open a NERDTree automatically when vim starts up
 "open a NERDTree automatically when vim starts up if no files were specified
 "open NERDTree automatically when vim starts up on opening a directory
@@ -233,7 +237,8 @@ autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in
 map <C-n> :NERDTreeToggle<CR>
 "close vim if the only window left open is a NERDTree
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
-" 
+
+ 
 " ===
 " === You Complete ME
 " ===
@@ -244,6 +249,9 @@ let g:ycm_complete_in_strings = 1
 let g:ycm_collect_identifiers_from_comments_and_strings = 0
 let g:ycm_key_invoke_completion = '<c-z>'
 
+" ===
+" === coc-nvim
+" ===
 " if hidden is not set, TextEdit might fail.
 set hidden
 
@@ -371,6 +379,7 @@ nnoremap <silent> <space>j  :<C-u>CocNext<CR>
 nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
 " Resume latest coc list
 nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
+
 " ===
 " === coc-snippet
 " ===
